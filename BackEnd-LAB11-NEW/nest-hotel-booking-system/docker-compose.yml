@@ -41,6 +41,7 @@ services:
       - "3307:3306" # Expose to host for debugging (optional in prod)
     volumes:
       - mysqldata:/var/lib/mysql
+      - ../Database:/docker-entrypoint-initdb.d
     healthcheck:
       test: [ "CMD-SHELL", "mysqladmin ping -h localhost -u root -pRiywSuPasS4252_" ]      
       interval: 5s
