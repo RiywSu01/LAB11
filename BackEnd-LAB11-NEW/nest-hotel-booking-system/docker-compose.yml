@@ -13,7 +13,7 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3000
-      - DATABASE_URL=mysql://ProjectBE_ADMIN:ADMIN1234567@localhost:3306/HotelBookingSystem_DB
+      - DATABASE_URL=mysql://ProjectBE_ADMIN:ADMIN1234567@mysql:3306/HotelBookingSystem_DB
       - DB_HOST=mysql
       - DB_PORT=3306
       - DB_USERNAME=ProjectBE_ADMIN
@@ -38,7 +38,7 @@ services:
       - MYSQL_USER=ProjectBE_ADMIN
       - MYSQL_PASSWORD=ADMIN1234567
     ports:
-      - "3306:3306" # Expose to host for debugging (optional in prod)
+      - "3307:3306" # Expose to host for debugging (optional in prod)
     volumes:
       - mysqldata:/var/lib/mysql
     healthcheck:
