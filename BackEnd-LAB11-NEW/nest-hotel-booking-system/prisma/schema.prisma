@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model bookings {
+  Booking_ID      Int                       @id @default(autoincrement())
+  Room_ID         Int
+  username        String                    @db.VarChar(100)
+  check_in        DateTime                  @db.DateTime(0)
+  check_out       DateTime                  @db.DateTime(0)
+  bookings_status bookings_bookings_status? @default(Pending)
+}
+
+model notifications {
+  id        Int       @id @default(autoincrement())
+  username  String    @db.VarChar(100)
+  message   String    @db.VarChar(100)
+  is_read   Boolean?  @default(false)
+  create_at DateTime? @default(now()) @db.DateTime(0)
+}
+
+model rooms {
+  id              Int       @id @default(autoincrement())
+  name            String    @db.VarChar(100)
+  description     String?   @db.Text
+  capacity        Int
+  price_per_night Decimal   @db.Decimal(10, 2)
+  image_url       String?   @default("placeholder.png") @db.VarChar(255)
+  is_active       Boolean?  @default(true)
+  start_date      DateTime  @db.DateTime(0)
+  end_date        DateTime  @db.DateTime(0)
+  created_at      DateTime? @default(now()) @db.DateTime(0)
+  updated_at      DateTime? @default(now()) @db.DateTime(0)
+}
+
+model users {
+  id           Int          @id @default(autoincrement())
+  username     String       @unique(map: "username") @db.VarChar(30)
+  userPassword String       @db.VarChar(60)
+  email        String       @unique(map: "email") @db.VarChar(255)
+  roles        users_roles? @default(USER)
+}
+
+enum users_roles {
+  USER
+  ADMIN
+}
+
+enum bookings_bookings_status {
+  Pending
+  Approved
+  Cancelled
+  Paid
+}

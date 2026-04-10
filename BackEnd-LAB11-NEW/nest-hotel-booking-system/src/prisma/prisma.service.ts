@@ -1,0 +1,26 @@
+import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
+import { PrismaMariaDb } from '@prisma/adapter-mariadb';
+import { PrismaClient } from '@prisma/client';
+import 'dotenv/config';
+
+@Injectable()
+export class PrismaService extends PrismaClient
+    implements OnModuleInit, OnModuleDestroy {
+    constructor() {
+        const databaseUrl = process.env.DATABASE_URL;
+        if (!databaseUrl) {
+            throw new Error('DATABASE_URL is missing.');
+        }
+        let adapterUrl = databaseUrl.replace(/^mysql:\/\//, 'mariadb://');
+        adapterUrl += adapterUrl.includes('?') ? '&allowPublicKeyRetrieval=true' : '?allowPublicKeyRetrieval=true';
+        const adapter = new PrismaMariaDb(adapterUrl);
+        super({ adapter });
+    }
+    async onModuleInit() {
+        await this.$connect();
+    }
+    async onModuleDestroy() {
+        await this.$disconnect();
+    }
+
+}
