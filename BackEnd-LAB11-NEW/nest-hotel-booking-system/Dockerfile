@@ -74,7 +74,7 @@ COPY --from=builder /app/dist ./dist
 
 # Let user create by themselves because if copy local uploads folder into the image, every time that build app, it permanently baking all the images in the local test images into the source code of container. This makes Docker image massive and bloated.
 
-RUN mkdir -p ./uploads && chown -R appuser:appgroup /app/uploads
+RUN mkdir -p ./uploads && chown -R appuser:appgroup /app/uploads && chmod -R 755 /app/uploads
 
 # Switch to non-root user
 

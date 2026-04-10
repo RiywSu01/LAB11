@@ -9,7 +9,7 @@ services:
       - "3000:3000"
     command: sh -c "npx prisma db push && node dist/src/main.js"
     volumes:
-      - ./uploads:/app/uploads #Keeps uploaded images safe on local pc
+      - uploadsdata:/app/uploads #Keeps uploaded images safe in a Docker named volume
     environment:
       - NODE_ENV=production
       - PORT=3000
@@ -64,3 +64,4 @@ services:
 volumes:
   mysqldata:
   redisdata:
+  uploadsdata:
