@@ -13,12 +13,12 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3000
-      - DATABASE_URL=mysql://${DB_USER}:${DB_PASS}@mysql:3306/${DB_NAME}
+      - DATABASE_URL=mysql://ProjectBE_ADMIN:ADMIN1234567@localhost:3306/HotelBookingSystem_DB
       - DB_HOST=mysql
       - DB_PORT=3306
-      - DB_USERNAME=${DB_USER}
-      - DB_PASSWORD=${DB_PASS}
-      - DB_NAME=${DB_NAME}
+      - DB_USERNAME=ProjectBE_ADMIN
+      - DB_PASSWORD=ADMIN1234567
+      - DB_NAME=HotelBookingSystem_DB
       - REDIS_HOST=redis
       - REDIS_PORT=6379
     depends_on:
@@ -32,19 +32,17 @@ services:
   mysql:
     image: mysql:8.0
     environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASS}
-      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_ROOT_PASSWORD=RiywSuPasS4252_
+      - MYSQL_DATABASE=HotelBookingSystem_DB
       # --- Tell MySQL to actually create the user that API is looking for ---
-      - MYSQL_USER=${DB_USER}
-      - MYSQL_PASSWORD=${DB_PASS}
+      - MYSQL_USER=ProjectBE_ADMIN
+      - MYSQL_PASSWORD=ADMIN1234567
     ports:
       - "3307:3306" # Expose to host for debugging (optional in prod)
     volumes:
       - mysqldata:/var/lib/mysql
-      # -- This line requied if not use with prisma, but if use prisma you not need this because prisma use schema.prisma for your database.
-      #- ../Database:/docker-entrypoint-initdb.d # Bind mount the Database folder to the container's init directory
     healthcheck:
-      test: [ "CMD-SHELL", "mysqladmin ping -h localhost -u root -p$$MYSQL_ROOT_PASSWORD" ]
+      test: [ "CMD-SHELL", "mysqladmin ping -h localhost -u root -pRiywSuPasS4252_" ]      
       interval: 5s
       timeout: 5s
       retries: 10
