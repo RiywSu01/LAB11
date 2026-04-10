@@ -38,7 +38,7 @@ services:
       - MYSQL_USER=ProjectBE_ADMIN
       - MYSQL_PASSWORD=ADMIN1234567
     ports:
-      - "3307:3306" # Expose to host for debugging (optional in prod)
+      - "3306:3306" # Expose to host for debugging (optional in prod)
     volumes:
       - mysqldata:/var/lib/mysql
     healthcheck:
